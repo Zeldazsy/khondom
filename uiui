@@ -1,0 +1,270 @@
+local HttpService = game:GetService("HttpService")
+local req = (http and http.request) or request
+local LocalPlayer = game.Players.LocalPlayer
+uky = nil
+inahe = math.random(1, 1000000)
+
+local function ClientId()
+    return game:GetService("RbxAnalyticsService"):GetClientId();
+end;
+
+local function xfghxfgjxghj(key)
+    local requesturl = "https://khondomhub.vercel.app/api/validate-key";
+    local postData = {
+        key = key,
+        hwid = tostring(ClientId())
+    }
+    local success, response = pcall(function()
+        return req({Url=requesturl,Method="POST",Headers={["Content-Type"]="application/json"},Body=HttpService:JSONEncode(postData)});
+    end);
+    if (success and response and response.Body) then
+        local decodedBody = HttpService:JSONDecode(response.Body);
+        if (decodedBody.success == true) then
+    print("Successfully authorized with key: " .. key)
+    uky = inahe
+    else
+        local path = "Zelda"
+        DefaultConfigName = path .. "/keys.json"
+        ConfigName = path .. "/" .. LocalPlayer.UserId .. "-keys.json"
+        keyx = isfile(ConfigName) and readfile(ConfigName)
+    
+        if keyx then
+            deletefile(ConfigName)
+        end
+        LocalPlayer:Kick("Key is invalid or expired.")
+        end
+    end
+end
+
+task.spawn(function()
+    local path = "Zelda"
+    DefaultConfigName = path .. "/keys.json"
+    ConfigName = path .. "/" .. LocalPlayer.UserId .. "-keys.json"
+    keyx = isfile(ConfigName) and readfile(ConfigName)
+
+    if keyx then
+        local success, response = pcall(function()
+            return HttpService:JSONDecode(keyx)
+        end)
+        if success and response then
+            key = response.key
+            xfghxfgjxghj(key)
+    end;
+end;
+end)
+
+if uky == inahe then
+local UIS = game:GetService("UserInputService")
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "KeyUI"
+gui.ResetOnSpawn = false
+gui.IgnoreGuiInset = true
+gui.Parent = playerGui
+
+local clickSound = Instance.new("Sound")
+clickSound.SoundId = "rbxassetid://9118823100"
+clickSound.Volume = 0.5
+clickSound.Parent = gui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 160)
+frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+frame.BackgroundTransparency = 0.2
+frame.BorderSizePixel = 0
+frame.ClipsDescendants = true
+frame.Parent = gui
+
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0, 10)
+frameCorner.Parent = frame
+
+local titleBar = Instance.new("TextLabel")
+titleBar.Size = UDim2.new(1, -30, 0, 30)
+titleBar.Position = UDim2.new(0, 10, 0, 0)
+titleBar.BackgroundTransparency = 1
+titleBar.Text = "Key System"
+titleBar.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleBar.TextSize = 20
+titleBar.Font = Enum.Font.GothamBold
+titleBar.TextXAlignment = Enum.TextXAlignment.Left
+titleBar.Parent = frame
+
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 25, 0, 25)
+closeBtn.Position = UDim2.new(1, -30, 0, 3)
+closeBtn.BackgroundTransparency = 1
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
+closeBtn.TextSize = 18
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.Parent = frame
+
+local keyInput = Instance.new("TextBox")
+keyInput.Size = UDim2.new(1, -20, 0, 35)
+keyInput.Position = UDim2.new(0, 10, 0, 35)
+keyInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+keyInput.Text = ""
+keyInput.PlaceholderText = "Paste Key"
+keyInput.TextColor3 = Color3.fromRGB(200, 200, 200)
+keyInput.TextSize = 16
+keyInput.Font = Enum.Font.Gotham
+keyInput.ClearTextOnFocus = true
+keyInput.Parent = frame
+
+local inputCorner = Instance.new("UICorner")
+inputCorner.CornerRadius = UDim.new(0, 6)
+inputCorner.Parent = keyInput
+
+local submitBtn = Instance.new("TextButton")
+submitBtn.Size = UDim2.new(0.5, -15, 0, 35)
+submitBtn.Position = UDim2.new(0, 10, 0, 85)
+submitBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+submitBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+submitBtn.Text = "Submit"
+submitBtn.TextSize = 16
+submitBtn.Font = Enum.Font.Gotham
+submitBtn.Parent = frame
+
+local submitCorner = Instance.new("UICorner")
+submitCorner.CornerRadius = UDim.new(0, 6)
+submitCorner.Parent = submitBtn
+
+local getLinkBtn = Instance.new("TextButton")
+getLinkBtn.Size = UDim2.new(0.5, -15, 0, 35)
+getLinkBtn.Position = UDim2.new(0.5, 5, 0, 85)
+getLinkBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+getLinkBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+
+getLinkBtn.Text = "Get Link"
+getLinkBtn.TextSize = 16
+getLinkBtn.Font = Enum.Font.Gotham
+getLinkBtn.Parent = frame
+
+local linkCorner = Instance.new("UICorner")
+linkCorner.CornerRadius = UDim.new(0, 6)
+linkCorner.Parent = getLinkBtn
+
+local resultLabel = Instance.new("TextLabel")
+resultLabel.Size = UDim2.new(1, -20, 0, 20)
+resultLabel.Position = UDim2.new(0, 10, 0, 130)
+resultLabel.BackgroundTransparency = 1
+resultLabel.Text = ""
+resultLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+resultLabel.TextSize = 16
+resultLabel.Font = Enum.Font.Gotham
+resultLabel.TextWrapped = true
+resultLabel.Visible = false
+resultLabel.Parent = frame
+
+local function buttonEffect(button)
+	clickSound:Play()
+end
+
+submitBtn.MouseButton1Click:Connect(function()
+	buttonEffect(submitBtn)
+local key = keyInput.Text
+if key == "" then
+    resultLabel.Text = "❌ Please enter a key."
+    resultLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+    resultLabel.Visible = true
+    return
+end
+
+local requesturl = "https://khondomhub.vercel.app/api/validate-key";
+
+local postData = {
+    key = key,
+    hwid = tostring(ClientId())
+}
+success, response = pcall(function()
+    return req({Url=requesturl,Method="POST",Headers={["Content-Type"]="application/json"},Body=HttpService:JSONEncode(postData)});
+end);
+if (success and response and response.Body) then
+    local decodedBody = HttpService:JSONDecode(response.Body);
+    if (decodedBody.success == true) then
+    resultLabel.Text = "✅ Correct Key!"
+    resultLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+    resultLabel.Visible = true
+    wait(2)
+    gui:Destroy()
+    local path = "Zelda"
+    if not isfolder(path) then
+        makefolder(path)
+    end
+    
+    DefaultConfigName = path .. "/keys.json"
+    ConfigName = path .. "/" .. LocalPlayer.UserId .. "-keys.json"
+    keyx = isfile(ConfigName) and readfile(ConfigName)
+
+    if not isfile(ConfigName) then
+        writefile(ConfigName, HttpService:JSONEncode({key = key}))
+    end
+    if isfile(ConfigName) then
+        writefile(ConfigName, HttpService:JSONEncode({key = key}))
+    end
+
+    if keyx then
+        local success, response = pcall(function()
+            return HttpService:JSONDecode(keyx)
+        end)
+        if success and response then
+            key = response.key
+        else
+            key = nil
+        end
+    else
+        key = nil
+    end
+
+    if (key == nil) then
+        return false
+    end
+    if (key == "") then
+        return false
+    end
+    xfghxfgjxghj(key)
+else
+    resultLabel.Text = "❌" .. " " .. decodedBody.message
+    resultLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+    resultLabel.Visible = true
+end
+end
+end)
+
+getLinkBtn.MouseButton1Click:Connect(function()
+	buttonEffect(getLinkBtn)
+setclipboard("https://khondomhub.vercel.app")
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+	buttonEffect(closeBtn)
+	gui:Destroy()
+end)
+
+local dragging, dragStart, startPos
+titleBar.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = input.Position
+		startPos = frame.Position
+	end
+end)
+
+titleBar.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = false
+	end
+end)
+
+UIS.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = input.Position - dragStart
+		frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end);
+end
